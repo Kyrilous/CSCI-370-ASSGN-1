@@ -11,7 +11,8 @@ public class DBTest_Demo {
     }
 
     public int testconnection_mysql(int hr_offset) {
-        String connection_host = "18.117.150.218";
+//        String connection_host = "18.117.150.218";
+        String connection_host = "127.0.0.1";
         Connection connect = null;
         PreparedStatement preparedStatement = null;
         int flag = 0;
@@ -19,8 +20,11 @@ public class DBTest_Demo {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
+//            connect = DriverManager.getConnection(
+//                    "jdbc:mysql://" + connection_host + ":3306/mydatabase?user=student&password=student123&connectTimeout=5000"
+//            );
             connect = DriverManager.getConnection(
-                    "jdbc:mysql://" + connection_host + ":3306/mydatabase?user=student&password=student123&connectTimeout=5000"
+                    "jdbc:mysql://" + connection_host + ":3307/mydatabase?user=student&password=student123&connectTimeout=5000"
             );
 
             String qry1a = "SELECT CURDATE() + " + hr_offset;
@@ -59,58 +63,58 @@ public class DBTest_Demo {
         return flag;
     }
 
-    public int testConnection (int hr_offset) {
-        String oracle_driver = "oracle.jdbc.driver.OracleDriver";
-        //String dbURL1 = "jdbc:oracle:thin:@149.4.211.180:1521:venus";
-        String dbURL1 = "jdbc:oracle:thin:@oodb.cs.qc.cuny.edu:1521:oodb";
-        String userName1 = "SE"; //"ec";
-        String userPassword1 = "SE2020"; //"cs370cs381";
-
-        Connection conn;
-        PreparedStatement pstmt;
-        ResultSet rs;
-
-        int flag = 0;
-        String newTime;
-
-        try
-        {
-            Class.forName(oracle_driver);
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
-
-        try
-        {
-            conn = DriverManager.getConnection(dbURL1, userName1, userPassword1);
-            String stmtQuery = "select sysdate + " + (float) hr_offset/24 + " from dual";
-            pstmt = conn.prepareStatement(stmtQuery);
-            rs = pstmt.executeQuery();
-            if (rs.next())
-            {
-                newTime = rs.getString(1);
-                System.out.println(hr_offset + " hour(s) ahead of the system clock of Oracle is:" + newTime);
-            }
-            rs.close();
-            pstmt.close();
-
-            try
-            {
-                conn.close();
-            }
-            catch (SQLException e) {};
-
-        }
-        catch (SQLException e)
-        {
-            System.out.println(e.getMessage());
-            flag = -1;
-        }
-
-        return flag;
-    }
+//    public int testConnection (int hr_offset) {
+//        String oracle_driver = "oracle.jdbc.driver.OracleDriver";
+//        //String dbURL1 = "jdbc:oracle:thin:@149.4.211.180:1521:venus";
+//        String dbURL1 = "jdbc:oracle:thin:@oodb.cs.qc.cuny.edu:1521:oodb";
+//        String userName1 = "SE"; //"ec";
+//        String userPassword1 = "SE2020"; //"cs370cs381";
+//
+//        Connection conn;
+//        PreparedStatement pstmt;
+//        ResultSet rs;
+//
+//        int flag = 0;
+//        String newTime;
+//
+//        try
+//        {
+//            Class.forName(oracle_driver);
+//        }
+//        catch (Exception e)
+//        {
+//            System.out.println(e.getMessage());
+//        }
+//
+//        try
+//        {
+//            conn = DriverManager.getConnection(dbURL1, userName1, userPassword1);
+//            String stmtQuery = "select sysdate + " + (float) hr_offset/24 + " from dual";
+//            pstmt = conn.prepareStatement(stmtQuery);
+//            rs = pstmt.executeQuery();
+//            if (rs.next())
+//            {
+//                newTime = rs.getString(1);
+//                System.out.println(hr_offset + " hour(s) ahead of the system clock of Oracle is:" + newTime);
+//            }
+//            rs.close();
+//            pstmt.close();
+//
+//            try
+//            {
+//                conn.close();
+//            }
+//            catch (SQLException e) {};
+//
+//        }
+//        catch (SQLException e)
+//        {
+//            System.out.println(e.getMessage());
+//            flag = -1;
+//        }
+//
+//        return flag;
+//    }
 
 
     public static void main(String[] args)
